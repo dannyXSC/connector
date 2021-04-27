@@ -141,7 +141,7 @@ class TerminalWindow(Window):
 
 if __name__ == '__main__':
     # test
-    windowHandle = TerminalWindow_Client()
+    windowHandle = TerminalWindow()
     windowHandle.welcome()
     windowHandle.setHeader(">> ")
     info = list()
