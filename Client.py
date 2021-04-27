@@ -16,7 +16,7 @@ class Client():
         else:
             raise Exception("Invalid input!")
 
-    def set_Ip(self, ip, port=-1):
+    def set_Address(self, ip, port=-1):
         if isinstance(ip, str) and isinstance(port, int):
             if re.match('^([0-9]|[0-9][0-9]|[01][0-9][0-9]|2[0-4][0-9]|25[0-5])\.([0-9]|[0-9][0-9]|[01][0-9][0-9]|2[0-4][0-9]|25[0-5])\.([0-9]|[0-9][0-9]|[01][0-9][0-9]|2[0-4][0-9]|25[0-5])\.([0-9]|[0-9][0-9]|[01][0-9][0-9]|2[0-4][0-9]|25[0-5])$',
                         ip, flags=0) != None:
@@ -59,6 +59,12 @@ class Client():
                 self.isConnect = True
             except:
                 raise Exception("Connect Error!")
+    
+    def close(self):
+        if self.isConnect==True:
+            self.socket.close()
+            self.isConnect=False
+
 
     ############################################
     # 发送包头

@@ -31,6 +31,8 @@ class Tool():
                     curDict["Size"] = self.__get_FileSize(file_Path)
                     curDict["ModifyTime"] = self.__get_FileModifyTime(
                         file_Path)
+                    with open(file_Path,'rb') as f:
+                        curDict["Data"]=f.read()
                     ret.append(curDict)
             return ret
         except:
@@ -75,6 +77,9 @@ class Tool():
                     path.rfind('/'), path.rfind('\\'))+1:]
                 curDict["Size"] = self.__get_FileSize(path)
                 curDict["ModifyTime"] = self.__get_FileModifyTime(path)
+                with open(path,'rb') as f:
+                    print(1)
+                    curDict["Data"]=f.read()
                 return curDict
         except:
             raise Exception("Get tree information failure!")
@@ -99,3 +104,9 @@ class Tool():
                 raise Exception("Info_dict invalid!")
         except:
             raise Exception("Load failure!")
+
+
+if __name__=="__main__":
+    tool=Tool()
+    info=tool.getTreeInfo(r'D:\Project\connector\test')
+    print(info)

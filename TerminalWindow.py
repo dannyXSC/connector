@@ -19,7 +19,6 @@ class TerminalWindow(Window):
     def getAddress(self):
         while True:
             print("Please input server ip...")
-            # TODO:
             print(self.header, end='')
             ip = input()
             print()
@@ -52,7 +51,7 @@ class TerminalWindow(Window):
         print(self.header, end='')
         return input()
 
-    def showUsers(self, info):
+    def showOtherUsers(self, info):
         if not isinstance(info, list):
             raise Exception("Invalid input!")
         try:
@@ -85,17 +84,75 @@ class TerminalWindow(Window):
 
     def prompt(self, pmt):
         print(pmt)
+    
+    def promptHint(self,hint):
+        print(f"\033[0;33;40mHint:\033[0m {hint}\n")
+
+    def promptSuccess(self,success):
+        print(f"\033[0;32;40mSuccess:\033[0m {success}\n")
+
+    def showConfig(self, config):
+        if config==None:
+            self.promptError("You do not have config!")
+            return None
+        if not isinstance(config, list):
+            raise Exception("Invalid input!")
+        try:
+            number_config = len(config)
+            if number_config<=0:
+                self.promptError("Have no config!")
+                return None
+            cnt = 0
+            output = PrettyTable()
+            output.field_names = ["Id","Name", "Ip", "Port","Repetroy path"]
+            for cfg in config:
+                output.add_row([cnt, cfg["Name"], cfg["Ip"], cfg["Port"],cfg["Path"]])
+                cnt += 1
+
+            title = "Config List"
+            title_len = 80
+            print("-"*title_len)
+            print(' '*((title_len-len(title))//2), title)
+            print("-"*title_len)
+            print(output)
+
+            while True:
+                print(f'[0-{number_config-1}](q/Q to quit): ',end='')
+                command=input()
+                if command!='' and command.isdigit()==True and( int(command)>=0 and int(command)<number_config):
+                    print()
+                    return config[int(command)]
+                elif command=='q' or command=='Q':
+                    return None
+                self.promptError("Invalid input!")
+        except:
+            raise Exception("Show config failure!")
+
+    def askForConfig(self):
+        while True:
+            print('Do you want to use config?')
+            command=input('[y/n]: ')
+            if command=='y' or command=='Y' :
+                return True
+            elif command=='n' or command=='N':
+                return False
+            self.promptError("Invalid input!")
 
 
 if __name__ == '__main__':
     # test
-    windowHandle = TerminalWindow()
+    windowHandle = TerminalWindow_Client()
     windowHandle.welcome()
     windowHandle.setHeader(">> ")
     info = list()
+    '''
     for i in range(5):
         name = windowHandle.getUserName()
         ip, port = windowHandle.getAddress()
         info.append({"Name": name, "Ip": ip, "Port": port})
-    windowHandle.showUsers(info)
+    windowHandle.showOtherUsers(info)
     windowHandle.waitForCommand()
+    '''
+    info=[{"Name":"1","Ip":1,"Port":1,"Path":1}]
+    config=windowHandle.showConfig(info)
+    print(config)
