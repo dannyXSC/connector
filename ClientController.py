@@ -2,7 +2,7 @@ import os
 
 from Controller import Controller
 from Client import Client
-from TerminalWindow_Client import TerminalWindow_Client
+from TerminalWindow import TerminalWindow
 from Log import Log
 
 
@@ -13,7 +13,7 @@ class ClientController(Controller):
         if window != None:
             self.window_Handle = window
         else:
-            self.window_Handle = TerminalWindow_Client()
+            self.window_Handle = TerminalWindow()
         self.log = Log()
 
     def run(self):

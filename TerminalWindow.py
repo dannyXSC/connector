@@ -4,7 +4,7 @@ from prettytable import PrettyTable
 from Window import Window
 
 
-class TerminalWindow_Client(Window):
+class TerminalWindow(Window):
     def __init__(self):
         Window.__init__(self)
         self.header = "(NotSet): "
@@ -52,7 +52,7 @@ class TerminalWindow_Client(Window):
         print(self.header, end='')
         return input()
 
-    def showOtherUsers(self, info):
+    def showUsers(self, info):
         if not isinstance(info, list):
             raise Exception("Invalid input!")
         try:
@@ -89,7 +89,7 @@ class TerminalWindow_Client(Window):
 
 if __name__ == '__main__':
     # test
-    windowHandle = TerminalWindow_Client()
+    windowHandle = TerminalWindow()
     windowHandle.welcome()
     windowHandle.setHeader(">> ")
     info = list()
@@ -97,5 +97,5 @@ if __name__ == '__main__':
         name = windowHandle.getUserName()
         ip, port = windowHandle.getAddress()
         info.append({"Name": name, "Ip": ip, "Port": port})
-    windowHandle.showOtherUsers(info)
+    windowHandle.showUsers(info)
     windowHandle.waitForCommand()
