@@ -51,7 +51,7 @@ class TerminalWindow(Window):
         print(self.header, end='')
         return input()
 
-    def showOtherUsers(self, info):
+    def showUsers(self, info):
         if not isinstance(info, list):
             raise Exception("Invalid input!")
         try:
@@ -150,7 +150,7 @@ if __name__ == '__main__':
         name = windowHandle.getUserName()
         ip, port = windowHandle.getAddress()
         info.append({"Name": name, "Ip": ip, "Port": port})
-    windowHandle.showOtherUsers(info)
+    windowHandle.showUsers(info)
     windowHandle.waitForCommand()
     '''
     info=[{"Name":"1","Ip":1,"Port":1,"Path":1}]

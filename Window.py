@@ -6,13 +6,6 @@ class Window():
         pass
 
     @abc.abstractmethod
-    def getUserName(self):
-        ##########################
-        # 获得当前用户名称
-        ##########################
-        pass
-
-    @abc.abstractmethod
     def getRepertoryPath(self):
         ##########################
         # 获得仓库位置
@@ -35,7 +28,7 @@ class Window():
         pass
 
     @abc.abstractmethod
-    def showOtherUsers(self, info):
+    def showUsers(self, info):
         ##########################
         # 窗口显示其他用户
         ##########################
